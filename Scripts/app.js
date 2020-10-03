@@ -4,6 +4,7 @@ const chatList = document.querySelector(".chat-list");
 const newChatForm = document.querySelector(".new-chat");
 const newNameForm = document.querySelector(".new-name");
 const updateMsg = document.querySelector(".update-mssg");
+const rooms = document.querySelector(".chat-rooms");
 
 //* add a new chat
 
@@ -43,6 +44,18 @@ newNameForm.addEventListener("submit", (e) => {
 
 //* check local storage for username
 const username = localStorage.username ? localStorage.username : "anon";
+
+//*update the chat room
+
+rooms.addEventListener("click", (e) => {
+  if (e.target.tagName === "BUTTON") {
+    chatUI.clear();
+    chatroom.updateRoom(e.target.getAttribute("id"));
+
+    //* calling the getchats method because after changing room to show chats with render method as callback
+    chatroom.getChats((chat) => chatUI.render(chat));
+  }
+});
 
 //* Class instances
 
